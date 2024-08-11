@@ -1,33 +1,34 @@
 from pathlib import Path
-
-def total_salary(path):
+# Функція для читяння файла і повернення списка словників з інформацією про котів
+def get_cats_info(path):
     '''
-    Функція аналізує файл і повертає загальну та середню суму заробітної плати всіх розробників.
+    Функция читає файл и поветає список словарів з інформацією про кожного кота.
     '''
     try:
-        # Відкриваємо і зчитуємо файл
+        # Відкриваємо і читаємо файл
         with open(path, 'r', encoding="utf-8") as file:
             data = file.read()
         
-        # Розбиваємо рядок на список і вибираємо з нього значення із зарплатою розробників
-        data_list = data.strip().split('\n')
-        salary_list = [float(line.split(',')[1]) for line in data_list]
+        # Обробка даних
+        data_cats = data.strip().split('\n')  
+        data_cats = [item.split(',') for item in data_cats]  
         
-        # Рахуємо загальну і середню зарплату
-        total_salary = sum(salary_list)
-        try:
-            average_salary = round(total_salary / len(salary_list), 2)
-        except ZeroDivisionError:
-            average_salary = 0
+        # Список ключів
+        cat_keys = ['id', 'name', 'age']
         
-        # Створюємо кортеж з отриманими значеннями
-        total_and_average_salaries = (total_salary, average_salary)
-        return total_and_average_salaries
+        # Формуємо список словарів
+        cats_list = [
+            {cat_keys[i]: data_cats[j][i] for i in range(len(cat_keys))}
+            for j in range(len(data_cats))
+        ]
+        
+        return cats_list
 
     except FileNotFoundError:
         print("File does not exist.")
-        return None
+        return []  
 
-# Приклад
-path = Path('name_salary.txt')
-print(total_salary(path))
+
+path = Path('cats_info.txt')
+print(get_cats_info(path))
+
