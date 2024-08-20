@@ -42,6 +42,7 @@ def change_contact(args, contacts):
     else:
         return f"Error: Contact {name} does not exist."
 
+
 @input_error
 def get_phone(args, contacts):
     # Функція для виводу контакту по запиту користувача
@@ -63,8 +64,6 @@ def show_all_contacts(contacts):
     for name, phone in contacts.items():
         result += f"{name}: {phone}\n"
     return result.strip()
-
-
 
 
 def main():
