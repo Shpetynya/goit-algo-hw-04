@@ -33,8 +33,6 @@ def add_contact(args, contacts):
 @input_error
 def change_contact(args, contacts):
     # Функція для внесення змін у вже існуючий контакт
-    if len(args) != 2:
-        return "Error: Please provide exactly 2 arguments: username and phone."
     name, phone = args
     if name in contacts:
         contacts[name] = phone
@@ -46,8 +44,7 @@ def change_contact(args, contacts):
 @input_error
 def get_phone(args, contacts):
     # Функція для виводу контакту по запиту користувача
-    if len(args) != 1:
-        return "Error: Please provide exactly 1 argument: username."
+  
     name = args[0]
     if name in contacts:
         return f"{name}'s phone number is {contacts[name]}."
